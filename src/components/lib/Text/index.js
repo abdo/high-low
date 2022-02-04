@@ -1,4 +1,4 @@
-import Box from 'components/reusable/Box';
+import Box from 'components/lib/Box';
 import PropTypes from 'prop-types';
 import TextStyled from './style';
 
