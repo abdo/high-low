@@ -4,6 +4,8 @@ const theme = {
     mainLight: '#3d50ba',
     black: '#000000',
     white: '#FFFFFF',
+    danger: '#E04040',
+    green: '#2EBA87',
   },
 };
 
