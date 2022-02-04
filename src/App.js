@@ -1,3 +1,4 @@
+import Layout from 'components/Layout';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import store from 'store/createStore';
@@ -7,7 +8,7 @@ function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <div>game</div>
+        <Layout />
       </ThemeProvider>
     </Provider>
   );
