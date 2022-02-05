@@ -1,4 +1,5 @@
 import Box from 'components/lib/Box';
+import CardsDeck from 'components/CardsDeck';
 import GameCard from 'components/GameCard';
 
 const Main = () => {
@@ -12,16 +13,19 @@ const Main = () => {
       flexDirection='column'
       position='relative'
     >
-      <GameCard />
+      <CardsDeck />
       <Box
         w='100%'
         display='flex'
         alignItems='center'
         justifyContent='space-between'
       >
-        <GameCard />
-        <GameCard />
+        <GameCard image='https://deckofcardsapi.com/static/img/4D.png' />
+        <GameCard image='https://deckofcardsapi.com/static/img/4D.png' />
       </Box>
+      <Box />
+      <Box />
+      <Box />
       <Box />
       <Box
         position='absolute'
@@ -29,7 +33,7 @@ const Main = () => {
         left='50%'
         transform='translate(-50%,-50%)'
       >
-        <GameCard />
+        <GameCard image='https://deckofcardsapi.com/static/img/4D.png' />
       </Box>
     </Box>
   );
