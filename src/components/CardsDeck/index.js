@@ -39,7 +39,7 @@ const CardsDeck = () => {
 
   return (
     <Box position='relative' onClick={animate}>
-      <Box as={motion.div} animate={controlAnimation} zIndex={3}>
+      <Box as={motion.div} animate={controlAnimation}>
         <GameCard
           image={
             isCardRevealed
@@ -49,7 +49,7 @@ const CardsDeck = () => {
         />
       </Box>
 
-      <Box position='absolute' top='0' left='0' zIndex={1}>
+      <Box position='absolute' top='0' left='0'>
         <GameCard image={cardBackLink} isPiled />
       </Box>
     </Box>
