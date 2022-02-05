@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   deckId: '',
   currentPlayerId: '',
   pileCards: [],
+  lastDrawnCard: {},
   noOfRemainingCards: deckSize,
   noOfSuccessfulConsecutiveGuesses: 0,
   isDrawingCard: false,
@@ -13,9 +14,21 @@ const INITIAL_STATE = {
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case actionTypes.ACTION_TYPE:
+    case actionTypes.DRAW_CARD:
       return {
         ...state,
+        isDrawingCard: true,
+      };
+
+    case actionTypes.CARD_DRAWN:
+      const { deckId, noOfRemainingCards, card } = action;
+      return {
+        ...state,
+        deckId,
+        noOfRemainingCards,
+        pileCards: [...state.pileCards, card],
+        lastDrawnCard: card,
+        isDrawingCard: false,
       };
 
     case actionTypes.CLEAR_DATA:

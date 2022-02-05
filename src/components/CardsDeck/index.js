@@ -1,15 +1,23 @@
 import { motion, useAnimation } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 import Box from 'components/lib/Box';
 import GameCard from 'components/GameCard';
-import { useState } from 'react';
+import { drawCard } from 'store/game/actions';
+import { useDispatch } from 'react-redux';
 
 const cardBackLink = 'https://deckofcardsapi.com/static/img/back.png';
 
 const CardsDeck = () => {
   let [isCardRevealed, setIsCardRevealed] = useState(false);
 
+  const dispatch = useDispatch();
+
   const controlAnimation = useAnimation();
+
+  useEffect(() => {
+    dispatch(drawCard());
+  }, []); // eslint-disable-line
 
   const animate = () => {
     const animationDuration = 700;

@@ -8,7 +8,7 @@ const GameCard = ({ isPiled, image }) => {
       as={motion.img}
       src={image}
       alt='game-card'
-      isPiled={isPiled}
+      $isPiled={isPiled}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     />

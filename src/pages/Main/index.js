@@ -1,6 +1,6 @@
 import Box from 'components/lib/Box';
 import CardsDeck from 'components/CardsDeck';
-import GameCard from 'components/GameCard';
+import CardsPile from 'components/CardsPile';
 import PlayerArea from 'components/PlayerArea';
 import { useSelector } from 'react-redux';
 
@@ -39,7 +39,7 @@ const Main = () => {
         left='50%'
         transform='translate(-50%,-50%)'
       >
-        <GameCard image='https://deckofcardsapi.com/static/img/4D.png' />
+        <CardsPile />
       </Box>
     </Box>
   );
