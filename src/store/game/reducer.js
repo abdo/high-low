@@ -26,9 +26,14 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         deckId,
         noOfRemainingCards,
-        pileCards: [...state.pileCards, card],
         lastDrawnCard: card,
         isDrawingCard: false,
+      };
+
+    case actionTypes.PILE_DRAWN_CARD:
+      return {
+        ...state,
+        pileCards: [...state.pileCards, state.lastDrawnCard],
       };
 
     case actionTypes.CLEAR_DATA:

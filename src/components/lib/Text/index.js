@@ -24,7 +24,11 @@ Text.propTypes = {
     'bExtraSmall',
     'micro',
   ]),
-  children: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   containerProps: PropTypes.shape({}),
 };
 

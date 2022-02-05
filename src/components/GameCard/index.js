@@ -2,6 +2,8 @@ import { CardImage } from './style';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 
+export const cardBackLink = 'https://deckofcardsapi.com/static/img/back.png';
+
 const GameCard = ({ isPiled, image }) => {
   return (
     <CardImage
@@ -16,11 +18,13 @@ const GameCard = ({ isPiled, image }) => {
 };
 
 GameCard.propTypes = {
-  image: PropTypes.string.isRequired,
+  isPiled: PropTypes.bool,
+  image: PropTypes.string,
 };
 
 GameCard.defaultProps = {
   isPiled: false,
+  image: cardBackLink,
 };
 
 export default GameCard;

@@ -1,13 +1,36 @@
 import { motion, useAnimation } from 'framer-motion';
+import { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Box from 'components/lib/Box';
-import PropTypes from 'prop-types';
 import Text from 'components/lib/Text';
+import { hideModal } from 'store/general/actions';
 import theme from 'style/theme';
-import { useEffect } from 'react';
 
-const Modal = ({ children, showModal, closeModal }) => {
+const Modal = () => {
+  const { showModal, content, isModalNotClosable, isNotification } =
+    useSelector((state) => ({
+      showModal: state.general.showModal,
+      content: state.general.modalContent,
+      isModalNotClosable: state.general.isModalNotClosable,
+      isNotification: state.general.isTemporaryModal,
+    }));
+
+  const dispatch = useDispatch();
+
+  const closeModal = useCallback(() => {
+    dispatch(hideModal());
+  }, [dispatch]);
+
   const controlAnimation = useAnimation();
+
+  useEffect(() => {
+    if (isNotification) {
+      setTimeout(() => {
+        closeModal();
+      }, 1000);
+    }
+  }, [isNotification, closeModal]);
 
   useEffect(() => {
     if (showModal) {
@@ -46,10 +69,9 @@ const Modal = ({ children, showModal, closeModal }) => {
         bgc={theme.colors.main}
         borderRadius='2rem'
         b={`2px solid ${theme.colors.white}`}
-        zIndex={4}
       >
         <Box position='relative' p='3rem'>
-          {children}
+          {content}
           <Box
             borderRadius='50%'
             bgc={theme.colors.white}
@@ -63,6 +85,7 @@ const Modal = ({ children, showModal, closeModal }) => {
             justifyContent='center'
             pointer
             onClick={closeModal}
+            hidden={isModalNotClosable || isNotification}
           >
             <Text
               type='h3'
@@ -83,19 +106,6 @@ const Modal = ({ children, showModal, closeModal }) => {
       ></Box>
     </>
   );
-};
-
-Modal.propTypes = {
-  showModal: PropTypes.bool.isRequired,
-  closeModal: PropTypes.func,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
-};
-
-Modal.defaultProps = {
-  closeModal: () => {},
 };
 
 export default Modal;

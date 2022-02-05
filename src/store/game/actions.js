@@ -4,10 +4,12 @@ import axios from 'axios';
 import store from 'store/createStore';
 
 export const drawCard = () => (dispatch) => {
-  const deckId = store?.getState().game?.deckId || 'new';
   dispatch({
     type: actionTypes.DRAW_CARD,
   });
+
+  const deckId = store?.getState().game?.deckId || 'new';
+
   axios.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw`).then(
     ({
       data: {
@@ -25,3 +27,8 @@ export const drawCard = () => (dispatch) => {
     },
   );
 };
+
+export const pileDrawnCard = () => (dispatch) =>
+  dispatch({
+    type: actionTypes.PILE_DRAWN_CARD,
+  });

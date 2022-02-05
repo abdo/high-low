@@ -1,7 +1,16 @@
 import GameCard from 'components/GameCard';
+import { useSelector } from 'react-redux';
 
 const CardsPile = () => {
-  return <GameCard image='https://deckofcardsapi.com/static/img/4D.png' />;
+  const { pileCards } = useSelector((state) => ({
+    pileCards: state.game.pileCards,
+  }));
+
+  const lastCard = pileCards.at(-1);
+
+  if (!lastCard) return null;
+
+  return <GameCard image={lastCard?.image} />;
 };
 
 export default CardsPile;
