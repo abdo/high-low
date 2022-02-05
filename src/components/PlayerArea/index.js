@@ -5,7 +5,7 @@ import theme from 'style/theme';
 
 const PlayerArea = ({ playerInfo: { name, id } }) => {
   return (
-    <Box m='5rem' textAlign='center'>
+    <Box m='-6rem 6rem 0' mt='-2rem 2rem 1rem' textAlign='center'>
       <Button bgc={theme.colors.mainLight}>{name || `Player ${id}`}</Button>
       <Box bgc={theme.colors.white} borderRadius='2rem' p='2rem' m='3rem 0 0'>
         <Text type='h3' color={theme.colors.main}>

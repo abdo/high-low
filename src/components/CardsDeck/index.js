@@ -17,7 +17,7 @@ const CardsDeck = () => {
   }));
 
   useEffect(() => {
-    dispatch(drawCard());
+    dispatch(drawCard({ callback: animate }));
   }, []); // eslint-disable-line
 
   const animate = () => {
@@ -31,7 +31,7 @@ const CardsDeck = () => {
       })
       .then(() => {
         dispatch(pileDrawnCard());
-        dispatch(drawCard());
+        dispatch(drawCard({}));
 
         controlAnimation.start({
           rotateY: 0,

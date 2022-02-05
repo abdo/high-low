@@ -3,30 +3,36 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import store from 'store/createStore';
 
-export const drawCard = () => (dispatch) => {
-  dispatch({
-    type: actionTypes.DRAW_CARD,
-  });
+export const drawCard =
+  ({ callback }) =>
+  (dispatch) => {
+    dispatch({
+      type: actionTypes.DRAW_CARD,
+    });
 
-  const deckId = store?.getState().game?.deckId || 'new';
+    const deckId = store?.getState().game?.deckId || 'new';
 
-  axios.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw`).then(
-    ({
-      data: {
-        deck_id: deckId,
-        remaining: noOfRemainingCards,
-        cards: [card],
+    axios.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw`).then(
+      ({
+        data: {
+          deck_id: deckId,
+          remaining: noOfRemainingCards,
+          cards: [card],
+        },
+      }) => {
+        if (typeof callback === 'function') {
+          callback();
+        }
+
+        dispatch({
+          type: actionTypes.CARD_DRAWN,
+          deckId,
+          noOfRemainingCards,
+          card,
+        });
       },
-    }) => {
-      dispatch({
-        type: actionTypes.CARD_DRAWN,
-        deckId,
-        noOfRemainingCards,
-        card,
-      });
-    },
-  );
-};
+    );
+  };
 
 export const pileDrawnCard = () => (dispatch) =>
   dispatch({

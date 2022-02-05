@@ -20,11 +20,18 @@ const Main = () => {
       flexDirection='column'
       position='relative'
     >
-      <Box h='33%'>
+      <Box h='33%' m='5rem 0 0' mt='2rem 0 0'>
         <CardsDeck />
       </Box>
 
-      <Box h='33%' display='flex' alignItems='center' justifyContent='center'>
+      <Box
+        h='33%'
+        m='5rem 0 0'
+        mt='2rem 0 0'
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+      >
         <CardsPile />
       </Box>
 
