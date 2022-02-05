@@ -7,6 +7,9 @@ import { drawCard } from 'store/game/actions';
 import { pileDrawnCard } from 'store/game/actions';
 import { useEffect } from 'react';
 
+const cardDrawSoundEffect =
+  'https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-41945/zapsplat_foley_paper_sheets_x3_construction_sugar_set_down_on_surface_001_42007.mp3';
+
 const CardsDeck = () => {
   const dispatch = useDispatch();
 
@@ -21,7 +24,9 @@ const CardsDeck = () => {
   }, []); // eslint-disable-line
 
   const animate = () => {
-    const animationDuration = 2000;
+    var audio = new Audio(cardDrawSoundEffect);
+    audio.play();
+    const animationDuration = 1200;
 
     controlAnimation
       .start({

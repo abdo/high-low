@@ -69,6 +69,7 @@ const Modal = () => {
         bgc={theme.colors.main}
         borderRadius='2rem'
         b={`2px solid ${theme.colors.white}`}
+        zIndex={4}
       >
         <Box position='relative' p='3rem'>
           {content}
