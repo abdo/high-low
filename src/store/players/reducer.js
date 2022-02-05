@@ -13,11 +13,9 @@ const setPlayerInitialData = ({ ...data }) => ({
 });
 
 const INITIAL_STATE = {
-  playersInfo: [
-    Array.from({ length: numberOfPlayers }).map((_, index) =>
-      setPlayerInitialData({ id: index + 1 }),
-    ),
-  ],
+  playersInfo: Array.from({ length: numberOfPlayers }).map((_, index) =>
+    setPlayerInitialData({ id: index + 1 }),
+  ),
 };
 
 const reducer = (state = INITIAL_STATE, action) => {

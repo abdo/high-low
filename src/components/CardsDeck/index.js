@@ -7,14 +7,14 @@ import { useState } from 'react';
 const cardBackLink = 'https://deckofcardsapi.com/static/img/back.png';
 
 const CardsDeck = () => {
-  let [revealed, setRevealed] = useState(false);
+  let [isCardRevealed, setIsCardRevealed] = useState(false);
 
   const controlAnimation = useAnimation();
 
   const animate = () => {
     const animationDuration = 700;
 
-    setRevealed(false);
+    setIsCardRevealed(false);
 
     controlAnimation
       .start({
@@ -33,24 +33,23 @@ const CardsDeck = () => {
       });
 
     setTimeout(() => {
-      setRevealed(true);
+      setIsCardRevealed(true);
     }, animationDuration / 2);
   };
 
   return (
     <Box position='relative' onClick={animate}>
-      <Box as={motion.div} animate={controlAnimation}>
+      <Box as={motion.div} animate={controlAnimation} zIndex={3}>
         <GameCard
           image={
-            revealed
+            isCardRevealed
               ? 'https://deckofcardsapi.com/static/img/4D.png'
               : cardBackLink
           }
-          isPiled
         />
       </Box>
 
-      <Box position='absolute' top='0' left='0'>
+      <Box position='absolute' top='0' left='0' zIndex={1}>
         <GameCard image={cardBackLink} isPiled />
       </Box>
     </Box>
