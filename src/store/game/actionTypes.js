@@ -3,3 +3,7 @@ export const CARD_DRAWN = 'players/CARD_DRAWN';
 export const PILE_DRAWN_CARD = 'players/PILE_DRAWN_CARD';
 export const SET_CURRENT_PLAYER = 'players/SET_CURRENT_PLAYER';
 export const CLEAR_DATA = 'players/CLEAR_DATA';
+export const DRAW_CARD_START = 'players/DRAW_CARD_START';
+export const DRAW_CARD_END = 'players/DRAW_CARD_END';
+export const SET_SUCCESSFUL_GUESSES = 'players/SET_SUCCESSFUL_GUESSES';
+export const UPDATE_CURRENT_PLAYER = 'players/UPDATE_CURRENT_PLAYER';

@@ -7,7 +7,6 @@ const setPlayerInitialData = ({ ...data }) => ({
   id: null,
   name: '',
   totalPoints: 0,
-  latestGuess: '',
   noOfSuccessfulGuesses: 0,
   ...data,
 });

@@ -1,9 +1,9 @@
 import GameCard, { cardBackLink } from 'components/GameCard';
+import { drawCard, drawCardEnd } from 'store/game/actions';
 import { motion, useAnimation } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Box from 'components/lib/Box';
-import { drawCard } from 'store/game/actions';
 import { pileDrawnCard } from 'store/game/actions';
 import { useEffect } from 'react';
 
@@ -15,13 +15,21 @@ const CardsDeck = () => {
 
   const controlAnimation = useAnimation();
 
-  const { lastDrawnCard } = useSelector((state) => ({
+  const { lastDrawnCard, drawCardStart } = useSelector((state) => ({
     lastDrawnCard: state.game.lastDrawnCard,
+    drawCardStart: state.game.drawCardStart,
   }));
 
   useEffect(() => {
     dispatch(drawCard({ callback: animate }));
   }, []); // eslint-disable-line
+
+  useEffect(() => {
+    if (drawCardStart) {
+      animate();
+      dispatch(drawCardEnd());
+    }
+  }, [drawCardStart]); // eslint-disable-line
 
   const animate = () => {
     var audio = new Audio(cardDrawSoundEffect);
@@ -48,7 +56,7 @@ const CardsDeck = () => {
   };
 
   return (
-    <Box position='relative' onClick={animate} w='15rem'>
+    <Box position='relative' w='15rem'>
       <Box
         as={motion.div}
         animate={controlAnimation}

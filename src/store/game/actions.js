@@ -55,3 +55,32 @@ export const setCurrentPlayer =
       type: actionTypes.SET_CURRENT_PLAYER,
       playerId,
     });
+
+export const drawCardStart =
+  ({ answer }) =>
+  (dispatch) =>
+    dispatch({
+      type: actionTypes.DRAW_CARD_START,
+      answer,
+    });
+
+export const drawCardEnd = () => (dispatch) =>
+  dispatch({
+    type: actionTypes.DRAW_CARD_END,
+  });
+
+export const setNoOfSuccessfulConsecutiveGuesses =
+  ({ no }) =>
+  (dispatch) =>
+    dispatch({
+      type: actionTypes.SET_SUCCESSFUL_GUESSES,
+      no,
+    });
+
+export const updateCurrentPlayer =
+  ({ playerId }) =>
+  (dispatch) =>
+    dispatch({
+      type: actionTypes.UPDATE_CURRENT_PLAYER,
+      playerId,
+    });
