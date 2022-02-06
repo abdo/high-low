@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   modalContent: null,
   isModalNotClosable: false,
   isTemporaryModal: false,
+  noModalEase: false,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -16,6 +17,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         modalContent: action.content,
         isModalNotClosable: action.isNotClosable,
         isTemporaryModal: action.isTemporaryModal,
+        noModalEase: action.noModalEase,
       };
 
     case actionTypes.HIDE_MODAL:

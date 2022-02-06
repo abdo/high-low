@@ -7,17 +7,14 @@ import Span from 'components/lib/Span';
 import Text from 'components/lib/Text';
 import mainSoundEffect from 'assets/music/main-sound-effect.mp3';
 import theme from 'style/theme';
-import { useDispatch } from 'react-redux';
 
 const useGameIntro = () => {
   const [hasGameStarted, setHasGameStarted] = useState(false);
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
     const onLetsStart = () => {
       setHasGameStarted(true);
-      dispatch(hideModal());
+      hideModal();
       const audio = new Audio(mainSoundEffect);
       audio.volume = '0.2';
       audio.loop = true;
@@ -54,13 +51,12 @@ const useGameIntro = () => {
       </Box>
     );
 
-    dispatch(
-      showModal({
-        content: introModalContent,
-        isNotClosable: true,
-      }),
-    );
-  }, [dispatch]);
+    showModal({
+      content: introModalContent,
+      isNotClosable: true,
+      noModalEase: true,
+    });
+  }, []); // eslint-disable-line
 
   return {
     hasGameStarted,

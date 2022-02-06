@@ -8,12 +8,13 @@ import { hideModal } from 'store/general/actions';
 import theme from 'style/theme';
 
 const Modal = () => {
-  const { showModal, content, isModalNotClosable, isNotification } =
+  const { showModal, content, isModalNotClosable, isNotification, noEase } =
     useSelector((state) => ({
       showModal: state.general.showModal,
       content: state.general.modalContent,
       isModalNotClosable: state.general.isModalNotClosable,
       isNotification: state.general.isTemporaryModal,
+      noEase: state.general.noModalEase,
     }));
 
   const dispatch = useDispatch();
@@ -37,12 +38,14 @@ const Modal = () => {
       controlAnimation.start({
         x: '0',
         y: 'calc(50vh - 50% )',
-        transition: {
-          duration: 0.5,
-          ease: 'easeInOut',
-          type: 'spring',
-          stiffness: 100,
-        },
+        transition: noEase
+          ? {}
+          : {
+              duration: 5,
+              ease: 'easeInOut',
+              type: 'spring',
+              stiffness: 100,
+            },
       });
     } else {
       controlAnimation.start({
@@ -55,7 +58,7 @@ const Modal = () => {
         },
       });
     }
-  }, [showModal, controlAnimation]);
+  }, [showModal]); // eslint-disable-line
 
   return (
     <>
