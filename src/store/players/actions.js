@@ -1,10 +1,11 @@
 import * as actionTypes from './actionTypes';
 
-export const doAction =
-  ({ payload }) =>
+export const adjustPlayerInfo =
+  ({ id, info }) =>
   (dispatch) => {
     dispatch({
-      type: actionTypes.ACTION_TYPE,
-      payload,
+      type: actionTypes.ADJUST_PLAYER_INFO,
+      playerId: id,
+      info,
     });
   };

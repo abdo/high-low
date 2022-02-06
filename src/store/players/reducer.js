@@ -20,9 +20,20 @@ const INITIAL_STATE = {
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case actionTypes.ACTION_TYPE:
+    case actionTypes.ADJUST_PLAYER_INFO:
+      const newPlayersInfo = state.playersInfo.map((info) => {
+        if (info.id === action.playerId) {
+          return {
+            ...info,
+            ...action.info,
+          };
+        } else {
+          return info;
+        }
+      });
       return {
         ...state,
+        playersInfo: newPlayersInfo,
       };
 
     case gameActionTypes.CLEAR_DATA:

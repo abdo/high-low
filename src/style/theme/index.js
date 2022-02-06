@@ -6,6 +6,7 @@ const theme = {
     white: '#FFFFFF',
     danger: '#E04040',
     green: '#2EBA87',
+    gray: '#333333',
   },
 };
 

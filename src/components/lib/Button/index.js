@@ -3,7 +3,7 @@ import ButtonStyled from './style';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 
-const Button = ({ containerProps, children, ...props }) => {
+const Button = ({ containerProps, children, disabled, ...props }) => {
   return (
     <Box
       span
@@ -14,8 +14,9 @@ const Button = ({ containerProps, children, ...props }) => {
     >
       <ButtonStyled
         as={motion.button}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: disabled ? 1 : 1.1 }}
+        whileTap={{ scale: disabled ? 1 : 0.9 }}
+        disabled={disabled}
         {...props}
       >
         {children}

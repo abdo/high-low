@@ -25,6 +25,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         showModal: false,
         isTemporaryModal: false,
+        noModalEase: false,
       };
 
     default:

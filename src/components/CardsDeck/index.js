@@ -48,7 +48,7 @@ const CardsDeck = () => {
   };
 
   return (
-    <Box position='relative' onClick={animate}>
+    <Box position='relative' onClick={animate} w='15rem'>
       <Box
         as={motion.div}
         animate={controlAnimation}
