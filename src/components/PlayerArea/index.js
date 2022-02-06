@@ -29,6 +29,7 @@ const PlayerArea = ({
         top='-105%'
         bgc={theme.colors.mainLight}
         p='1rem'
+        borderRadius='0.8rem'
       >
         <Text>
           {name}, will the next card be higher or lower than{' '}

@@ -4,6 +4,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Box from 'components/lib/Box';
+import Text from 'components/lib/Text';
 import { pileDrawnCard } from 'store/game/actions';
 import { useEffect } from 'react';
 
@@ -15,10 +16,13 @@ const CardsDeck = () => {
 
   const controlAnimation = useAnimation();
 
-  const { lastDrawnCard, drawCardStart } = useSelector((state) => ({
-    lastDrawnCard: state.game.lastDrawnCard,
-    drawCardStart: state.game.drawCardStart,
-  }));
+  const { lastDrawnCard, drawCardStart, noOfRemainingCards } = useSelector(
+    (state) => ({
+      lastDrawnCard: state.game.lastDrawnCard,
+      drawCardStart: state.game.drawCardStart,
+      noOfRemainingCards: state.game.noOfRemainingCards,
+    }),
+  );
 
   useEffect(() => {
     dispatch(drawCard({ callback: animate }));
@@ -69,6 +73,10 @@ const CardsDeck = () => {
 
       <Box position='absolute' top='0' left='0'>
         <GameCard image={cardBackLink} isPiled />
+      </Box>
+
+      <Box position='absolute' bottom='-3rem' left='0'>
+        <Text type='micro'>{noOfRemainingCards + 1} cards left</Text>
       </Box>
     </Box>
   );

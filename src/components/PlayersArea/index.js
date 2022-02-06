@@ -119,8 +119,7 @@ const PlayersArea = () => {
           info: {
             totalPoints: isGuessSuccessful
               ? currentPlayerInfo.totalPoints
-              : currentPlayerInfo.totalPoints +
-                cardValuesMapper[lastPiledCard.value],
+              : currentPlayerInfo.totalPoints + 1,
             noOfSuccessfulGuesses: isGuessSuccessful
               ? currentPlayerInfo.noOfSuccessfulGuesses + 1
               : currentPlayerInfo.noOfSuccessfulGuesses,
@@ -138,15 +137,18 @@ const PlayersArea = () => {
           setNoOfSuccessfulConsecutiveGuesses({ no: newNumberOfGuesses }),
         );
         if (noOfSuccessfulConsecutiveGuesses + 1 === 3) {
-          dispatch(
-            updateCurrentPlayer({
-              playerId:
-                playersInfo[
-                  (playersInfo.findIndex((p) => p.id === currentPlayerId) + 1) %
-                    playersInfo.length
-                ].id,
-            }),
-          );
+          setTimeout(() => {
+            dispatch(
+              updateCurrentPlayer({
+                playerId:
+                  playersInfo[
+                    (playersInfo.findIndex((p) => p.id === currentPlayerId) +
+                      1) %
+                      playersInfo.length
+                  ].id,
+              }),
+            );
+          }, 1800);
         }
       } else {
         dispatch(setNoOfSuccessfulConsecutiveGuesses({ no: 0 }));
