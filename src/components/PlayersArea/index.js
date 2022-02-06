@@ -1,6 +1,7 @@
 import { cardValuesMapper, possibleGuesses } from 'store/game/mapper';
 import {
   drawCardStart,
+  playAgain,
   setCurrentPlayer,
   setNoOfSuccessfulConsecutiveGuesses,
   updateCurrentPlayer,
@@ -9,10 +10,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 import Box from 'components/lib/Box';
+import Button from 'components/lib/Button';
 import PlayerArea from 'components/PlayerArea';
 import Text from 'components/lib/Text';
 import { adjustPlayerInfo } from 'store/players/actions';
+import { deckSize } from 'store/game/reducer';
 import { showModal } from 'store/general/actions';
+import theme from 'style/theme';
 
 const PlayersArea = () => {
   const [showQuestion, setShowQuestion] = useState();
@@ -23,6 +27,7 @@ const PlayersArea = () => {
     pileCards,
     latestGuess,
     noOfSuccessfulConsecutiveGuesses,
+    isDrawingCard,
   } = useSelector((state) => ({
     playersInfo: state.players.playersInfo,
     currentPlayerId: state.game.currentPlayerId,
@@ -30,6 +35,7 @@ const PlayersArea = () => {
     latestGuess: state.game.latestGuess,
     noOfSuccessfulConsecutiveGuesses:
       state.game.noOfSuccessfulConsecutiveGuesses,
+    isDrawingCard: state.game.isDrawingCard,
   }));
 
   const lastPiledCard = pileCards.at(-1);
@@ -61,6 +67,41 @@ const PlayersArea = () => {
       setShowQuestion(true);
     }
   }, [currentPlayerId]); // eslint-disable-line
+
+  const onPlayAgain = () => {
+    dispatch(playAgain());
+  };
+
+  // Show game end notification
+  useEffect(() => {
+    if (pileCards.length === deckSize) {
+      const winner = playersInfo.sort(
+        (a, b) => a.totalPoints - b.totalPoints,
+      )[0];
+
+      showModal({
+        content: (
+          <Box textAlign='center'>
+            <Text type='h2' fw='bold'>
+              Congratulations {winner.name}! <br /> You're the KING 😉
+            </Text>
+
+            <Text type='h2' fw='bold'>
+              Let's play again!
+            </Text>
+            <Button
+              onClick={onPlayAgain}
+              bgc={theme.colors.mainLight}
+              containerProps={{ m: '2rem 0 0' }}
+            >
+              Play again
+            </Button>
+          </Box>
+        ),
+        isNotClosable: true,
+      });
+    }
+  }, [pileCards]); // eslint-disable-line
 
   // Show result notification
   useEffect(() => {
@@ -160,8 +201,7 @@ const PlayersArea = () => {
   }, [lastPiledCard]); // eslint-disable-line
 
   const onAnswerQuestion = ({ answer }) => {
-    setShowQuestion(false);
-    dispatch(drawCardStart({ answer }));
+    if (!isDrawingCard) dispatch(drawCardStart({ answer }));
   };
 
   return (

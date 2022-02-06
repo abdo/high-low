@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 
-const deckSize = 52;
+export const deckSize = 52;
 
 const INITIAL_STATE = {
   deckId: '',
@@ -67,6 +67,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentPlayerId: action.playerId,
+        noOfSuccessfulConsecutiveGuesses: 0,
       };
 
     case actionTypes.CLEAR_DATA:

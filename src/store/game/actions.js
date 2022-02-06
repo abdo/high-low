@@ -84,3 +84,8 @@ export const updateCurrentPlayer =
       type: actionTypes.UPDATE_CURRENT_PLAYER,
       playerId,
     });
+
+export const playAgain = () => (dispatch) =>
+  dispatch({
+    type: actionTypes.CLEAR_DATA,
+  });

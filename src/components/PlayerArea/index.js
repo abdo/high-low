@@ -68,8 +68,8 @@ const PlayerArea = ({
           </Text>
           <Box hidden={!showQuestion}>
             {Array.from({ length: noOfSuccessfulConsecutiveGuesses }).map(
-              () => (
-                <span> ✅ </span>
+              (_, i) => (
+                <span key={i}> ✅ </span>
               ),
             )}
           </Box>

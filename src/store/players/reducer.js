@@ -38,9 +38,11 @@ const reducer = (state = INITIAL_STATE, action) => {
     case gameActionTypes.CLEAR_DATA:
       return {
         ...INITIAL_STATE,
-        playersInfo: state?.playersInfo?.map((info, index) =>
-          setPlayerInitialData({ id: index, name: info?.name }),
-        ),
+        playersInfo: state?.playersInfo?.map((info, index) => ({
+          ...info,
+          totalPoints: 0,
+          noOfSuccessfulGuesses: 0,
+        })),
       };
 
     default:
