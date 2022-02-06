@@ -2,17 +2,12 @@ import Box from 'components/lib/Box';
 import CardsDeck from 'components/CardsDeck';
 import CardsPile from 'components/CardsPile';
 import Modal from 'components/lib/Modal';
-import PlayerArea from 'components/PlayerArea';
+import PlayersArea from 'components/PlayersArea';
 import Text from 'components/lib/Text';
 import useGameIntro from './hooks/useGameIntro';
-import { useSelector } from 'react-redux';
 
 const Main = () => {
   const { hasGameStarted } = useGameIntro({});
-
-  const { playersInfo } = useSelector((state) => ({
-    playersInfo: state.players.playersInfo,
-  }));
 
   return (
     <Box
@@ -53,9 +48,7 @@ const Main = () => {
             alignItems='center'
             justifyContent='space-between'
           >
-            {playersInfo.map((info) => (
-              <PlayerArea key={info.id} playerInfo={info} />
-            ))}
+            <PlayersArea />
           </Box>
         </>
       )}

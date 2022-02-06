@@ -29,7 +29,7 @@ const Modal = () => {
     if (isNotification) {
       setTimeout(() => {
         closeModal();
-      }, 600);
+      }, 1000);
     }
   }, [isNotification, closeModal]);
 

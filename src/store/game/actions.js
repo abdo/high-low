@@ -47,3 +47,11 @@ export const pileDrawnCard = () => (dispatch) =>
   dispatch({
     type: actionTypes.PILE_DRAWN_CARD,
   });
+
+export const setCurrentPlayer =
+  ({ playerId }) =>
+  (dispatch) =>
+    dispatch({
+      type: actionTypes.SET_CURRENT_PLAYER,
+      playerId,
+    });

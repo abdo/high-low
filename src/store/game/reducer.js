@@ -36,6 +36,12 @@ const reducer = (state = INITIAL_STATE, action) => {
         pileCards: [...state.pileCards, state.lastDrawnCard],
       };
 
+    case actionTypes.SET_CURRENT_PLAYER:
+      return {
+        ...state,
+        currentPlayerId: action.playerId,
+      };
+
     case actionTypes.CLEAR_DATA:
       return {
         ...INITIAL_STATE,
