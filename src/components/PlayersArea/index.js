@@ -170,11 +170,13 @@ const PlayersArea = () => {
         <PlayerArea
           key={info.id}
           playerInfo={info}
-          allPlayersInfo={playersInfo}
           lastPiledCard={lastPiledCard}
           showQuestion={showQuestion && info.id === currentPlayerId}
           onAnswerQuestion={onAnswerQuestion}
           noOfSuccessfulConsecutiveGuesses={noOfSuccessfulConsecutiveGuesses}
+          isInDanger={playersInfo.every(
+            (p) => p.id === info.id || p.totalPoints < info.totalPoints,
+          )}
         />
       ))}
     </>

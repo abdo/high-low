@@ -12,6 +12,7 @@ const PlayerArea = ({
   showQuestion,
   onAnswerQuestion,
   noOfSuccessfulConsecutiveGuesses,
+  isInDanger,
 }) => {
   const [nameText, setNameText] = useState(name || `Player ${id}`);
 
@@ -57,21 +58,31 @@ const PlayerArea = ({
         onDragEnd={() => setNameText(name || `Player ${id}`)}
         bgc={theme.colors.mainLight}
         p='1rem'
+        m='2rem 0 0'
         noSelect
         pointer
       >
-        <Text fw='bold'>{nameText}</Text>
-        <Box hidden={!showQuestion}>
-          {Array.from({ length: noOfSuccessfulConsecutiveGuesses }).map(() => (
-            <span> ✅ </span>
-          ))}
+        <Box display='flex' justifyContent='center' alignItems='center'>
+          <Text fw='bold' containerProps={{ m: '0 1rem 0 0' }}>
+            {nameText}
+          </Text>
+          <Box hidden={!showQuestion}>
+            {Array.from({ length: noOfSuccessfulConsecutiveGuesses }).map(
+              () => (
+                <span> ✅ </span>
+              ),
+            )}
+          </Box>
         </Box>
       </Box>
       <Box bgc={theme.colors.white} borderRadius='2rem' p='2rem' m='3rem 0 0'>
         <Text type='h3' color={theme.colors.main}>
           No of points
         </Text>
-        <Text type='h2' color={theme.colors.main}>
+        <Text
+          type='h2'
+          color={isInDanger ? theme.colors.danger : theme.colors.green}
+        >
           {totalPoints}
         </Text>
       </Box>
