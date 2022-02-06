@@ -4,7 +4,6 @@ import Text from 'components/lib/Text';
 import { motion } from 'framer-motion';
 import { possibleGuesses } from 'store/game/mapper';
 import theme from 'style/theme';
-import { useState } from 'react';
 
 const PlayerArea = ({
   playerInfo: { name, id, totalPoints },
@@ -14,8 +13,6 @@ const PlayerArea = ({
   noOfSuccessfulConsecutiveGuesses,
   isInDanger,
 }) => {
-  const [nameText, setNameText] = useState(name || `Player ${id}`);
-
   return (
     <Box
       m='-30rem 6rem 0'
@@ -24,6 +21,9 @@ const PlayerArea = ({
       position='relative'
     >
       <Box
+        as={motion.div}
+        drag
+        dragSnapToOrigin={true}
         textAlign='center'
         hidden={!showQuestion || !lastPiledCard?.value}
         position='absolute'
@@ -50,21 +50,10 @@ const PlayerArea = ({
           Lower
         </Button>
       </Box>
-      <Box
-        as={motion.div}
-        drag
-        dragSnapToOrigin={true}
-        onDragStart={() => setNameText('Leave me alone 🥺')}
-        onDragEnd={() => setNameText(name || `Player ${id}`)}
-        bgc={theme.colors.mainLight}
-        p='1rem'
-        m='2rem 0 0'
-        noSelect
-        pointer
-      >
+      <Box bgc={theme.colors.mainLight} p='1rem' m='2rem 0 0' noSelect pointer>
         <Box display='flex' justifyContent='center' alignItems='center'>
           <Text fw='bold' containerProps={{ m: '0 1rem 0 0' }}>
-            {nameText}
+            {name || `Player ${id}`}
           </Text>
           <Box hidden={!showQuestion}>
             {Array.from({ length: noOfSuccessfulConsecutiveGuesses }).map(

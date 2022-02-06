@@ -72,19 +72,27 @@ const PlayersArea = () => {
     dispatch(playAgain());
   };
 
+  console.log('pileCards.length :>> ', pileCards.length);
   // Show game end notification
   useEffect(() => {
-    if (pileCards.length === deckSize) {
-      const winner = playersInfo.sort(
-        (a, b) => a.totalPoints - b.totalPoints,
-      )[0];
+    if (pileCards.length >= deckSize) {
+      let winner = playersInfo.sort((a, b) => a.totalPoints - b.totalPoints)[0];
+      if (playersInfo.every((p) => p.totalPoints === winner.totalPoints)) {
+        winner = null;
+      }
 
       showModal({
         content: (
           <Box textAlign='center'>
-            <Text type='h2' fw='bold'>
-              Congratulations {winner.name}! <br /> You're the KING 😉
-            </Text>
+            {winner ? (
+              <Text type='h2' fw='bold'>
+                Congratulations {winner?.name}! <br /> You're the KING 😉
+              </Text>
+            ) : (
+              <Text type='h2' fw='bold'>
+                It's a draw 🤷 <br /> You guys rock
+              </Text>
+            )}
 
             <Text type='h2' fw='bold'>
               Let's play again!
@@ -107,18 +115,21 @@ const PlayersArea = () => {
   useEffect(() => {
     if (lastPiledCard && secondToLastPiledCard && latestGuess) {
       let isGuessSuccessful = false;
+
+      const lastPiledCardValue = cardValuesMapper[lastPiledCard.value];
+      const secondToLastPiledCardValue =
+        cardValuesMapper[secondToLastPiledCard.value];
+
       if (
         latestGuess === possibleGuesses.high &&
-        cardValuesMapper[lastPiledCard.value] >
-          cardValuesMapper[secondToLastPiledCard.value]
+        lastPiledCardValue > secondToLastPiledCardValue
       ) {
         isGuessSuccessful = true;
       }
 
       if (
         latestGuess === possibleGuesses.low &&
-        cardValuesMapper[lastPiledCard.value] <
-          cardValuesMapper[secondToLastPiledCard.value]
+        lastPiledCardValue < secondToLastPiledCardValue
       ) {
         isGuessSuccessful = true;
       }
@@ -129,11 +140,9 @@ const PlayersArea = () => {
           <Box textAlign='center'>
             <Text type='h3' fw='bold'>
               {lastPiledCard.value}
-              {cardValuesMapper[lastPiledCard.value] <
-              cardValuesMapper[secondToLastPiledCard.value]
+              {lastPiledCardValue < secondToLastPiledCardValue
                 ? ' < '
-                : cardValuesMapper[lastPiledCard.value] <
-                  cardValuesMapper[secondToLastPiledCard.value]
+                : lastPiledCardValue > secondToLastPiledCardValue
                 ? ' > '
                 : ' = '}
               {secondToLastPiledCard.value}
@@ -198,7 +207,7 @@ const PlayersArea = () => {
       // update show question
       setShowQuestion(true);
     }
-  }, [lastPiledCard]); // eslint-disable-line
+  }, [pileCards]); // eslint-disable-line
 
   const onAnswerQuestion = ({ answer }) => {
     if (!isDrawingCard) dispatch(drawCardStart({ answer }));
