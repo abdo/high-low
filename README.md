@@ -2,6 +2,8 @@
 
 ### `This project is built with React JS`
 
+You can check the game through [this link](https://high-low-game.netlify.app)
+
 ### To run locally:
 
 - Make sure you are in the `main` branch
