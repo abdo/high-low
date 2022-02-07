@@ -170,7 +170,7 @@ const PlayersArea = () => {
           info: {
             totalPoints: isGuessSuccessful
               ? currentPlayerInfo.totalPoints
-              : currentPlayerInfo.totalPoints + 1,
+              : currentPlayerInfo.totalPoints + noOfCurrentlyPiledCards,
             noOfSuccessfulGuesses: isGuessSuccessful
               ? currentPlayerInfo.noOfSuccessfulGuesses + 1
               : currentPlayerInfo.noOfSuccessfulGuesses,
