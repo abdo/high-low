@@ -84,7 +84,7 @@ const CardsDeck = () => {
 
       <Box position='absolute' bottom='-3rem' left='0'>
         <Text type='micro'>
-          {remainingNotPiledDeckCards}{' '}
+          {remainingNotPiledDeckCards >= 0 ? remainingNotPiledDeckCards : 0}{' '}
           {remainingNotPiledDeckCards === 1 ? 'card' : 'cards'} left
         </Text>
       </Box>
