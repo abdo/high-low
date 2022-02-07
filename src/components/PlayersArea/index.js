@@ -28,6 +28,7 @@ const PlayersArea = () => {
     latestGuess,
     noOfSuccessfulConsecutiveGuesses,
     isDrawingCard,
+    noOfCurrentlyPiledCards,
   } = useSelector((state) => ({
     playersInfo: state.players.playersInfo,
     currentPlayerId: state.game.currentPlayerId,
@@ -36,6 +37,7 @@ const PlayersArea = () => {
     noOfSuccessfulConsecutiveGuesses:
       state.game.noOfSuccessfulConsecutiveGuesses,
     isDrawingCard: state.game.isDrawingCard,
+    noOfCurrentlyPiledCards: state.game.noOfCurrentlyPiledCards,
   }));
 
   const lastPiledCard = pileCards.at(-1);
@@ -72,7 +74,6 @@ const PlayersArea = () => {
     dispatch(playAgain());
   };
 
-  console.log('pileCards.length :>> ', pileCards.length);
   // Show game end notification
   useEffect(() => {
     if (pileCards.length >= deckSize) {
@@ -183,9 +184,42 @@ const PlayersArea = () => {
           noOfSuccessfulConsecutiveGuesses + 1 === 3
             ? 0
             : noOfSuccessfulConsecutiveGuesses + 1;
-        dispatch(
-          setNoOfSuccessfulConsecutiveGuesses({ no: newNumberOfGuesses }),
-        );
+
+        const switchPlayer = newNumberOfGuesses === 0;
+
+        if (newNumberOfGuesses === 0) {
+          dispatch(
+            setNoOfSuccessfulConsecutiveGuesses({
+              no: 3,
+              switchPlayer,
+            }),
+          );
+
+          setTimeout(() => {
+            dispatch(
+              setNoOfSuccessfulConsecutiveGuesses({
+                no: newNumberOfGuesses,
+                switchPlayer,
+              }),
+            );
+          }, 500);
+        } else {
+          dispatch(
+            setNoOfSuccessfulConsecutiveGuesses({
+              no: newNumberOfGuesses,
+              switchPlayer,
+            }),
+          );
+        }
+
+        setTimeout(() => {
+          dispatch(
+            setNoOfSuccessfulConsecutiveGuesses({
+              no: newNumberOfGuesses,
+              switchPlayer: newNumberOfGuesses === 0,
+            }),
+          );
+        }, 500);
         if (noOfSuccessfulConsecutiveGuesses + 1 === 3) {
           setTimeout(() => {
             dispatch(
@@ -201,7 +235,11 @@ const PlayersArea = () => {
           }, 1800);
         }
       } else {
+        // wrong guess
         dispatch(setNoOfSuccessfulConsecutiveGuesses({ no: 0 }));
+        setTimeout(() => {
+          dispatch(drawCardStart({ answer: '' }));
+        }, 1000);
       }
 
       // update show question
@@ -220,7 +258,11 @@ const PlayersArea = () => {
           key={info.id}
           playerInfo={info}
           lastPiledCard={lastPiledCard}
-          showQuestion={showQuestion && info.id === currentPlayerId}
+          showQuestion={
+            showQuestion &&
+            info.id === currentPlayerId &&
+            noOfCurrentlyPiledCards !== 0
+          }
           onAnswerQuestion={onAnswerQuestion}
           noOfSuccessfulConsecutiveGuesses={noOfSuccessfulConsecutiveGuesses}
           isInDanger={playersInfo.every(

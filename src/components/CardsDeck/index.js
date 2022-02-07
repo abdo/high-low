@@ -61,6 +61,8 @@ const CardsDeck = () => {
       });
   };
 
+  const remainingNotPiledDeckCards = deckSize - pileCards.length;
+
   return (
     <Box position='relative' w='15rem'>
       <Box
@@ -76,12 +78,15 @@ const CardsDeck = () => {
       <Box position='absolute' top='0' left='0'>
         <GameCard
           image={cardBackLink}
-          isPiled={deckSize - pileCards.length !== 1}
+          isPiled={remainingNotPiledDeckCards !== 1}
         />
       </Box>
 
       <Box position='absolute' bottom='-3rem' left='0'>
-        <Text type='micro'>{deckSize - pileCards.length} cards left</Text>
+        <Text type='micro'>
+          {remainingNotPiledDeckCards}{' '}
+          {remainingNotPiledDeckCards === 1 ? 'card' : 'cards'} left
+        </Text>
       </Box>
     </Box>
   );

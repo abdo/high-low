@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   deckId: '',
   currentPlayerId: '',
   pileCards: [],
+  noOfCurrentlyPiledCards: 0,
   lastDrawnCard: {},
   latestGuess: '',
   noOfRemainingCards: deckSize,
@@ -36,6 +37,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         pileCards: [...state.pileCards, state.lastDrawnCard],
+        noOfCurrentlyPiledCards: state.noOfCurrentlyPiledCards + 1,
       };
 
     case actionTypes.SET_CURRENT_PLAYER:
@@ -61,6 +63,10 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         noOfSuccessfulConsecutiveGuesses: action.no,
+        noOfCurrentlyPiledCards:
+          action.no === 0 && !action.switchPlayer
+            ? 0
+            : state.noOfCurrentlyPiledCards,
       };
 
     case actionTypes.UPDATE_CURRENT_PLAYER:

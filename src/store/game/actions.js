@@ -70,11 +70,12 @@ export const drawCardEnd = () => (dispatch) =>
   });
 
 export const setNoOfSuccessfulConsecutiveGuesses =
-  ({ no }) =>
+  ({ no, switchPlayer }) =>
   (dispatch) =>
     dispatch({
       type: actionTypes.SET_SUCCESSFUL_GUESSES,
       no,
+      switchPlayer,
     });
 
 export const updateCurrentPlayer =

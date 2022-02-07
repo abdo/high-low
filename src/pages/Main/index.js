@@ -5,9 +5,14 @@ import Modal from 'components/lib/Modal';
 import PlayersArea from 'components/PlayersArea';
 import Text from 'components/lib/Text';
 import useGameIntro from './hooks/useGameIntro';
+import { useSelector } from 'react-redux';
 
 const Main = () => {
   const { hasGameStarted } = useGameIntro({});
+
+  const { noOfCurrentlyPiledCards } = useSelector((state) => ({
+    noOfCurrentlyPiledCards: state.game.noOfCurrentlyPiledCards,
+  }));
 
   return (
     <Box
@@ -39,6 +44,13 @@ const Main = () => {
             justifyContent='center'
           >
             <CardsPile />
+          </Box>
+
+          <Box h='0'>
+            <Text type='micro' m='-2rem 0 0'>
+              {noOfCurrentlyPiledCards}{' '}
+              {noOfCurrentlyPiledCards === 1 ? 'card' : 'cards'} piled
+            </Text>
           </Box>
 
           <Box
