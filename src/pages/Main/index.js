@@ -47,7 +47,7 @@ const Main = () => {
           </Box>
 
           <Box h='0'>
-            <Text type='micro' m='-2rem 0 0'>
+            <Text type='micro' containerProps={{ m: '0', mt: '-2rem 0 0' }}>
               {noOfCurrentlyPiledCards}{' '}
               {noOfCurrentlyPiledCards === 1 ? 'card' : 'cards'} piled
             </Text>
